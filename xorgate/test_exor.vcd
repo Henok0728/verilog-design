@@ -1,0 +1,34 @@
+$date
+	Sun Apr  5 21:44:05 2026
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module exorgate_tb $end
+$var wire 1 ! c $end
+$var reg 1 " a $end
+$var reg 1 # b $end
+$scope module u0_dut $end
+$var wire 1 " a_i $end
+$var wire 1 # b_i $end
+$var wire 1 ! c_o $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+x#
+x"
+x!
+$end
+#1
+0"
+#5
+1"
+#210
