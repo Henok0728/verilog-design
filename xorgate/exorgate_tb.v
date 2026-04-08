@@ -1,22 +1,21 @@
 module exorgate_tb;
 reg a;
 reg b;
-wire c;
+wire y;
 exorgate u0_dut(
     .a_i(a),
     .b_i(b),
-    .c_o(c)
+    .c_o(y)
 );
 initial begin
+$display("A B | Y");
+$display("------");
+a = 1; b = 1; #10; $display("%b %b | %b", a, b, y);
+a = 1; b = 0; #10; $display("%b %b | %b", a, b, y);
+a = 0; b = 1; #10; $display("%b %b | %b", a, b, y);
+a = 0; b = 0; #10; $display("%b %b | %b", a, b, y);
 
-$dumpfile("test_exor.vcd");
-$dumpvars(0,exorgate_tb);
-
-#1 a=1'b0;
-#4 a=1'b1;
-#5 a=1'b1;
-
-#200 $finish;
+$finish;
 end
 
 
