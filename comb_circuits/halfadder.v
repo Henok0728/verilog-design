@@ -1,9 +1,9 @@
 module halfadder(
     input a,
     input b,
-    output s,
-    output d
+    output sum,
+    output carry
 );
-    assign s = a ^ b;
-    assign d = a & b;
+    assign sum = a ^ b;
+    assign carry = a & b;
 endmodule
