@@ -1,4 +1,4 @@
-module fourtoninedecoder(
+module four_to_ten_decoder(
     input  [3:0] in,
     output reg [9:0] out
 );

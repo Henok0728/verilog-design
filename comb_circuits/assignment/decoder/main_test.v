@@ -4,10 +4,10 @@ reg [9:0] in2;
 wire [9:0] out;
 wire [3:0] out2;
  
-fourtoninedecoder d1(.in(in),
+four_to_ten_decoder d1(.in(in),
                      .out(out)
                      );
-ninetofourencoder e1(.in(in2),
+ten_to_four_encoder e1(.in(in2),
                         .out(out2)
                         );
 initial begin

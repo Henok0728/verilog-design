@@ -1,4 +1,4 @@
-module ninetofourencoder(
+module ten_to_four_encoder(
     input [9:0] in,
     output reg [3:0] out
 );
