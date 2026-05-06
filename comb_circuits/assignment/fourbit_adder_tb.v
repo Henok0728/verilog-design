@@ -6,14 +6,14 @@ wire overflow;
 fourbit_adder uut(
     .a(A),
     .b(B),
-    .cin(Cin),
-    .sum(Sum),
-    .overflow(overflow)
+    .control(Cin),
+    .result(Sum),
+    .carry_out(overflow)
 );
 
 initial begin
-   
-    A = 10'd8; B = 10'd8;Cin=0; #10;
+    A=10'd0; B=10'd0; Cin=0;
+    #1;A = 10'd4; B = 10'd5;Cin=1; #10;
     $display("ADD: %d %d",overflow,Sum);
 
     $finish;
