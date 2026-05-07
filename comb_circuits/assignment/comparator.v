@@ -1,4 +1,4 @@
-module comparator(input [3:0] a,b,
+module comparator(input [3:0] a,b, 
                   output reg gt, eq, lt);
 
     always @(*) begin
