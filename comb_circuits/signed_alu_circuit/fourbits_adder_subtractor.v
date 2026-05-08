@@ -2,7 +2,7 @@ module fourbits_adder_subtractor(
     input [3:0] a,b,
     input  control, 
     output [3:0] result, 
-    output carry_out
+    output carry_out,negative,zero,overflow
     );
     wire c1, c2, c3,c4;
     wire [3:0] sum,b_mode;
@@ -16,5 +16,10 @@ module fourbits_adder_subtractor(
 
     assign result = sum;
     assign carry_out = c4 ^ control;
+    
+
+    assign negative = result[3];
+    assign zero = ~|result;
+    assign overflow = c3 ^ c4;
 
 endmodule
