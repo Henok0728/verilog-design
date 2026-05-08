@@ -12,7 +12,7 @@ module comparator(input [3:0] a,b,
 
 
    assign eq = (diff == 4'b0000);
-   assign lt = ~(cout);
+   assign lt = ~(cout | eq);
    assign gt = cout & (~eq);
 
 
