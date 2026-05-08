@@ -7,10 +7,11 @@ module Simple_alu(
     output reg overflow
 );
 wire greater, equal, less;
-// Internal wires to capture outputs from sub-modules
+
 wire [3:0] sum_out, diff_out;
-wire carry_add, carry_sub;;
-// Instance for Addition
+wire carry_add, carry_sub;
+
+
 fourbit_adder_subtractor add1(
     .a(A),
     .b(B),
@@ -19,7 +20,7 @@ fourbit_adder_subtractor add1(
     .carry_out(carry_add)
 );
 
-// Instance for Subtraction
+
 fourbit_adder_subtractor sub1(
     .a(A),
     .b(B),
@@ -36,9 +37,8 @@ comparator compare(
     .lt(less)
 );
 
-// Multiplexer logic to select the correct output
 always @(*) begin
-    // Default values to prevent latches
+   
     result = 4'b0000;
     overflow = 1'b0;
     gt=0;lt=0;eq=0;
