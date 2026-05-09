@@ -50,23 +50,11 @@ always @(*) begin
     greater = 0;
     less = 0;
     equal = 0;
-    case (control)
-
-        // ADD
-        2'b00: result = adder_result;
-
-        // SUB
-        2'b01: result = adder_result;
-
-        // COMPARE (no meaningful result output)
-        2'b10: begin 
-                less    = control[1] ? signed_less    : unsigned_less;
-                greater = control[1] ? signed_greater : unsigned_greater;
-                equal   = zero;
-        end
-
-        default: result = 4'b0000;
-    endcase
+    if (control[1]==0)
+        result = adder_result;
+    else
+        less    = control[1] ? signed_less    : unsigned_less;
+        greater = control[1] ? signed_greater : unsigned_greater;
+        equal   = zero;
 end
-
 endmodule
