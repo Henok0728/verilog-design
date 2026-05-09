@@ -1,73 +1,95 @@
-`timescale 1ns / 1ps
+`timescale 1ns/1ps
 
 module Simple_alu_tb;
 
-reg [3:0] a, b;
-reg [1:0] control;
+    // Testbench signals
+    reg  [3:0] a;
+    reg  [3:0] b;
+    reg  [1:0] control;
 
-wire [3:0] result;
-wire carry_out, negative, overflow, zero;
-wire equal, less, greater;
+    wire [3:0] result;
+    wire sign;
+    wire equal;
+    wire less;
+    wire greater;
 
-// DUT (Device Under Test)
-Simple_alu uut (
-    .a(a),
-    .b(b),
-    .control(control),
-    .result(result),
-    .carry_out(carry_out),
-    .negative(negative),
-    .overflow(overflow),
-    .zero(zero),
-    .equal(equal),
-    .less(less),
-    .greater(greater)
-);
+    // Instantiate the ALU
+    Simple_alu uut (
+        .a(a),
+        .b(b),
+        .control(control),
+        .result(result),
+        .sign(sign),
+        .equal(equal),
+        .less(less),
+        .greater(greater)
+    );
 
-initial begin
-    // Create VCD file
-    $dumpfile("alu.vcd");
-    $dumpvars(0, Simple_alu_tb);
+    // Monitor all signal changes
+    initial begin
+        $display("Time\tctrl\ta\tb\tresult\tsign\tequal\tless\tgreater");
+        $monitor("%0t\t%b\t%0d\t%0d\t%0d\t%b\t%b\t%b\t%b",
+                 $time, control, a, b, result,
+                 sign, equal, less, greater);
+    end
 
-    // Test 1: Add 5 + 3 = 8
-    a = 4'd5;
-    b = 4'd3;
-    control = 2'b00;
-    #10;
+    // Test sequence
+    initial begin
+        // ---------- Arithmetic Mode ----------
+        // control[1] = 0
+        // control[0] = 0 -> addition
+        // control[0] = 1 -> subtraction
 
-    // Test 2: Subtract 5 - 3 = 2
-    control = 2'b01;
-    #10;
+        // 3 + 2 = 5
+        a = 4'd3; b = 4'd2; control = 2'b00;
+        #10;
 
-    // Test 3: Compare 5 and 3
-    control = 2'b10;
-    #10;
+        // 7 + 4 = 11
+        a = 4'd7; b = 4'd4; control = 2'b00;
+        #10;
 
-    // Test 4: Compare 3 and 5
-    a = 4'd3;
-    b = 4'd5;
-    control = 2'b10;
-    #10;
+        // 9 - 5 = 4
+        a = 4'd7; b = 4'd5; control = 2'b01;
+        #10;
 
-    // Test 5: Compare equal
-    a = 4'd7;
-    b = 4'd7;
-    control = 2'b10;
-    #10;
+        // 3 - 7 = -4 -> result should display 4, sign = 1
+        a = 4'd3; b = 4'd7; control = 2'b01;
+        #10;
 
-    // Test 6: Signed overflow example: 7 + 7
-    a = 4'b0111;
-    b = 4'b0111;
-    control = 2'b00;
-    #10;
+        // 5 - 5 = 0
+        a = 4'd5; b = 4'd5; control = 2'b01;
+        #10;
 
-    // Test 7: Signed comparison: -3 < 2
-    a = 4'b1101; // -3 in 4-bit two's complement
-    b = 4'b0010; // 2
-    control = 2'b10;
-    #10;
+        // ---------- Comparison Mode ----------
+        // control[1] = 1
 
-    $finish;
-end
+        // 3 < 7
+        a = 4'd3; b = 4'd7; control = 2'b10;
+        #10;
+
+        // 9 > 2
+        a = 4'd9; b = 4'd2; control = 2'b10;
+        #10;
+
+        // 6 == 6
+        a = 4'd6; b = 4'd6; control = 2'b10;
+        #10;
+
+        // Signed comparison: -3 < 2
+        // 4'b1101 = -3 in two's complement
+        a = 4'b1101; b = 4'b0010; control = 2'b10;
+        #10;
+
+        // Signed comparison: 2 > -3
+        a = 4'b0010; b = 4'b1101; control = 2'b10;
+        #10;
+
+        // Signed comparison: -4 < -1
+        a = 4'b1100; b = 4'b1111; control = 2'b10;
+        #10;
+
+        // End simulation
+        $finish;
+    end
 
 endmodule

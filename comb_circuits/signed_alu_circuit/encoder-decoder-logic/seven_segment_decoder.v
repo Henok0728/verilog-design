@@ -14,7 +14,7 @@ always @(*) begin
         4'b0110: out = 7'b1011111; // 6
         4'b0111: out = 7'b1110000; // 7
         4'b1000: out = 7'b1111111; // 8
-        4'b1001: out = 7'b1111011; // 9
+        4'b1001: out = 7'b1001111; // overflow
         default: out = 7'b0000000; // Blank for invalid input
     endcase
 end
