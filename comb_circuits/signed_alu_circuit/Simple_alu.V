@@ -15,7 +15,7 @@ module Simple_alu(
 );
 
 wire [3:0] adder_result;
-wire c_out, neg, ovf, z;
+wire c_out, neg, ovf;
 
 // ---------- Adder/Subtractor ----------
 fourbits_adder_subtractor adder (
@@ -34,27 +34,23 @@ assign carry_out = c_out;
 assign negative   = neg;
 assign overflow   = ovf;
 assign zero       = ~|adder_result;
-
-
-wire unsigned_less    = ~c_out;
-wire unsigned_greater = c_out & ~zero;
-
 wire signed_less    = neg ^ ovf;
 wire signed_greater = ~zero & ~(neg ^ ovf);
 
 
-
-
 always @(*) begin
-    result = 4'b0000; 
-    greater = 0;
-    less = 0;
-    equal = 0;
-    if (control[1]==0)
+    result  = 4'b0000;
+    greater = 1'b0;
+    less    = 1'b0;
+    equal   = 1'b0;
+
+    if (control[1] == 1'b0) begin
         result = adder_result;
-    else
-        less    = control[1] ? signed_less    : unsigned_less;
-        greater = control[1] ? signed_greater : unsigned_greater;
+    end
+    else begin
+        less    = signed_less;
+        greater = signed_greater;
         equal   = zero;
+    end
 end
 endmodule
