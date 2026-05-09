@@ -3,6 +3,7 @@ module seven_segment_decoder(
     output reg [6:0] out
 );
 always @(*) begin
+    
     case (in)
         4'b0000: out = 7'b1111110; // 0
         4'b0001: out = 7'b0110000; // 1

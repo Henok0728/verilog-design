@@ -25,57 +25,47 @@ Simple_alu uut (
 );
 
 initial begin
+    // Create VCD file
+    $dumpfile("alu.vcd");
+    $dumpvars(0, Simple_alu_tb);
 
-    $display("A B CTRL | RESULT C N V Z | EQ LT GT");
-    $display("--------------------------------------");
-
-    // ---------- ADD ----------
-    a = 4'd3; b = 4'd5; control = 2'b00;
+    // Test 1: Add 5 + 3 = 8
+    a = 4'd5;
+    b = 4'd3;
+    control = 2'b00;
     #10;
-    $display("%b %b 00 | %b %b %b %b %b | %b  %b  %b",
-        a,b,result,carry_out,negative,overflow,zero,equal,less,greater);
 
-    // ---------- ADD overflow ----------
-    a = 4'b0111; b = 4'b0001; control = 2'b00;
+    // Test 2: Subtract 5 - 3 = 2
+    control = 2'b01;
     #10;
-    $display("%b %b 00 | %b %b %b %b %b | %b  %b  %b",
-        a,b,result,carry_out,negative,overflow,zero,equal,less,greater);
 
-    // ---------- SUB ----------
-    a = 4'd9; b = 4'd4; control = 2'b01;
+    // Test 3: Compare 5 and 3
+    control = 2'b10;
     #10;
-    $display("%b %b 01 | %b %b %b %b %b | %b  %b  %b",
-        a,b,result,carry_out,negative,overflow,zero,equal,less,greater);
 
-    // ---------- SUB negative ----------
-    a = 4'd3; b = 4'd7; control = 2'b01;
+    // Test 4: Compare 3 and 5
+    a = 4'd3;
+    b = 4'd5;
+    control = 2'b10;
     #10;
-    $display("%b %b 01 | %b %b %b %b %b | %b  %b  %b",
-        a,b,result,carry_out,negative,overflow,zero,equal,less,greater);
 
-    // ---------- EQUAL ----------
-    a = 4'd6; b = 4'd6; control = 2'b01;
+    // Test 5: Compare equal
+    a = 4'd7;
+    b = 4'd7;
+    control = 2'b10;
     #10;
-    $display("%b %b 01 | %b %b %b %b %b | %b  %b  %b",
-        a,b,result,carry_out,negative,overflow,zero,equal,less,greater);
 
-    // ---------- COMPARE UNSIGNED ----------
-    a = 4'd2; b = 4'd9; control = 2'b10;
+    // Test 6: Signed overflow example: 7 + 7
+    a = 4'b0111;
+    b = 4'b0111;
+    control = 2'b00;
     #10;
-    $display("%b %b 10 | %b %b %b %b %b | %b  %b  %b",
-        a,b,result,carry_out,negative,overflow,zero,equal,less,greater);
 
-    // ---------- COMPARE SIGNED ----------
-    a = 4'b1110; b = 4'b0001; control = 2'b10;
+    // Test 7: Signed comparison: -3 < 2
+    a = 4'b1101; // -3 in 4-bit two's complement
+    b = 4'b0010; // 2
+    control = 2'b10;
     #10;
-    $display("%b %b 10 | %b %b %b %b %b | %b  %b  %b",
-        a,b,result,carry_out,negative,overflow,zero,equal,less,greater);
-
-    // ---------- ZERO CASE ----------
-    a = 4'd5; b = 4'd5; control = 2'b00;
-    #10;
-    $display("%b %b 00 | %b %b %b %b %b | %b  %b  %b",
-        a,b,result,carry_out,negative,overflow,zero,equal,less,greater);
 
     $finish;
 end

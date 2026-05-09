@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 module Simple_alu(
     input  [3:0] a, b,
     input  [1:0] control,
