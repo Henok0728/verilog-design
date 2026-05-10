@@ -7,13 +7,14 @@ module Simple_alu(
 
     output reg [3:0] result,
     output reg sign,
+    output overflow,
     output reg equal,
     output reg less,
     output reg greater
 );
     wire sub_en;
     wire [3:0] sum;
-    wire overflow,zero;
+    wire zero;
 
 
 //subtractor logic
