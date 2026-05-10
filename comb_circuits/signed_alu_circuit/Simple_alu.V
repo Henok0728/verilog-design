@@ -11,40 +11,24 @@ module Simple_alu(
     output reg less,
     output reg greater
 );
+    wire sub_en;
+    wire [3:0] sum;
+    wire overflow,zero;
 
-    // Arithmetic results
-    wire [3:0] adder_result;
-    wire [3:0] final_result;
-    wire overflow;
 
-    // Flags derived from the arithmetic result
-    wire negative;
-    wire zero;
-
+//subtractor logic
+    assign sub_en = control[0] ^ control[1];
     // Adder/Subtractor
     fourbits_adder_subtractor adder (
         .a(a),
         .b(b),
-        .control(control[0]),   // 0 = add, 1 = subtract
-        .result(adder_result),
+        .control(sub_en),   
+        .result(sum),
         .overflow(overflow)
     );
-    assign negative = adder_result[3];
-    assign zero     = ~|adder_result;
+    assign zero = ~|sum;
 
-    // Absolute value of arithmetic result (used when negative)
-    two_complement complementer (
-        .in(adder_result),
-        .negative(negative),
-        .out(final_result)
-    );
-
-    // Signed comparison logic
-    wire signed_less;
-    wire signed_greater;
-
-    assign signed_less    = negative ^ overflow;
-    assign signed_greater = ~zero & ~(negative ^ overflow);
+    
 
     // Main combinational logic
     always @(*) begin
@@ -55,22 +39,25 @@ module Simple_alu(
         less    = 1'b0;
         greater = 1'b0;
 
-        //arthmetic operations 
-        if (control[1] == 1'b0) begin
-            // Arithmetic mode
-            sign = negative;
-
-            if (negative)
-                result = final_result;   // show magnitude
-            else
-                result = adder_result;
-        end
-        else begin
-            // Comparison mode
-            equal   = zero;
-            less    = signed_less;
-            greater = signed_greater;
-        end
+        case (control)
+            2'b00,2'b01: begin // Addition/Subtraction
+                result = (overflow) ? 4'b0000 : sum;
+                sign   = sum[3];
+            end
+            2'b10: begin // Comparison
+                less   = (sum[3] ^ overflow);
+                equal    = (zero);
+                greater = ~equal & ~(sum[3]^overflow);
+            end
+            default: begin
+                // No operation or undefined control code
+                result  = 4'b0000;
+                sign    = 1'b0;
+                equal   = 1'b0;
+                less    = 1'b0;
+                greater = 1'b0;
+            end
+        endcase
     end
 
 endmodule
