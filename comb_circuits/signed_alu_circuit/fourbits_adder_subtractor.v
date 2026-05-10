@@ -5,13 +5,13 @@ module fourbits_adder_subtractor(
     output overflow
     );
     wire c1, c2, c3,c4;
-    wire [3:0] sum,b_mode;
+    wire [3:0] b_mode;
     assign b_mode = b ^ {4{control}}; 
 
-    full_adder fa0(a[0], b_mode[0], control, sum[0], c1);
-    full_adder fa1(a[1], b_mode[1], c1, sum[1], c2);
-    full_adder fa2(a[2], b_mode[2], c2, sum[2], c3);
-    full_adder fa3(a[3], b_mode[3], c3, sum[3], c4);
+    full_adder fa0(a[0], b_mode[0], control, result[0], c1);
+    full_adder fa1(a[1], b_mode[1], c1, result[1], c2);
+    full_adder fa2(a[2], b_mode[2], c2, result[2], c3);
+    full_adder fa3(a[3], b_mode[3], c3, result[3], c4);
     assign overflow = c3 ^ c4;
-    assign result = (overflow) ? 4'b1001 : sum;
+
 endmodule

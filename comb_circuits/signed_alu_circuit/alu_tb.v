@@ -72,7 +72,7 @@ module Simple_alu_tb;
         #10;
 
         // 6 == 6
-        a = 4'd6; b = 4'd6; control = 2'b10;
+        a = 4'd8; b = 4'd8; control = 2'b00;
         #10;
 
         // Signed comparison: -3 < 2
