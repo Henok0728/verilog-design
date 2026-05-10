@@ -3,7 +3,9 @@ module seven_segment_decoder(
     output reg [6:0] out
 );
 always @(*) begin
-    
+    // simple 7-segment decoder for displaying the magnitude of the result on a 7-segment display. 
+    // It takes a 4-bit input and outputs the corresponding 7-bit pattern to display digits 0-9,
+    // and a specific pattern for overflow (when the input is 15). The default case outputs a blank display for any invalid input.
     case (in)
         4'b0000: out = 7'b1111110; // 0
         4'b0001: out = 7'b0110000; // 1

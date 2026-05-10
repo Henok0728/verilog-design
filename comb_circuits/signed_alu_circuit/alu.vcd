@@ -1,0 +1,328 @@
+$date
+	Sun May 10 16:48:17 2026
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module Simple_alu_tb $end
+$scope module uut $end
+$var wire 4 ! a [3:0] $end
+$var wire 4 " b [3:0] $end
+$var wire 2 # control [1:0] $end
+$var wire 1 $ sub_en $end
+$var wire 1 % zero $end
+$var wire 4 & sum [3:0] $end
+$var wire 1 ' overflow $end
+$var reg 1 ( equal $end
+$var reg 1 ) greater $end
+$var reg 1 * less $end
+$var reg 4 + result [3:0] $end
+$var reg 1 , sign $end
+$scope module adder $end
+$var wire 4 - a [3:0] $end
+$var wire 4 . b [3:0] $end
+$var wire 4 / b_mode [3:0] $end
+$var wire 1 $ control $end
+$var wire 1 ' overflow $end
+$var wire 4 0 result [3:0] $end
+$var wire 1 1 c4 $end
+$var wire 1 2 c3 $end
+$var wire 1 3 c2 $end
+$var wire 1 4 c1 $end
+$scope module fa0 $end
+$var wire 1 5 a $end
+$var wire 1 6 b $end
+$var wire 1 $ cin $end
+$var wire 1 4 cout $end
+$var wire 1 7 sum $end
+$upscope $end
+$scope module fa1 $end
+$var wire 1 8 a $end
+$var wire 1 9 b $end
+$var wire 1 4 cin $end
+$var wire 1 3 cout $end
+$var wire 1 : sum $end
+$upscope $end
+$scope module fa2 $end
+$var wire 1 ; a $end
+$var wire 1 < b $end
+$var wire 1 3 cin $end
+$var wire 1 2 cout $end
+$var wire 1 = sum $end
+$upscope $end
+$scope module fa3 $end
+$var wire 1 > a $end
+$var wire 1 ? b $end
+$var wire 1 2 cin $end
+$var wire 1 1 cout $end
+$var wire 1 @ sum $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+0@
+0?
+0>
+1=
+0<
+0;
+0:
+19
+18
+17
+06
+15
+04
+13
+02
+01
+b101 0
+b10 /
+b10 .
+b11 -
+0,
+b101 +
+0*
+0)
+0(
+0'
+b101 &
+0%
+0$
+b0 #
+b10 "
+b11 !
+$end
+#10000
+1,
+1@
+1'
+1:
+03
+b0 +
+12
+b1011 &
+b1011 0
+0=
+09
+1<
+b100 /
+1;
+b100 "
+b100 .
+b111 !
+b111 -
+#20000
+b10 +
+0'
+11
+07
+0@
+13
+b10 &
+b10 0
+1:
+19
+0<
+1?
+14
+1$
+06
+0,
+b1010 /
+b1 #
+b101 "
+b101 .
+#30000
+01
+1,
+1@
+0'
+0:
+b1100 +
+02
+b1100 &
+b1100 0
+1=
+09
+b1000 /
+0;
+b111 "
+b111 .
+b11 !
+b11 -
+#40000
+11
+1%
+0@
+0'
+13
+0,
+b0 +
+12
+0:
+b0 &
+b0 0
+0=
+19
+b1010 /
+08
+1;
+b101 "
+b101 .
+b101 !
+b101 -
+#50000
+1*
+01
+1@
+0'
+0)
+02
+0:
+0%
+b1100 &
+b1100 0
+1=
+09
+0(
+b1000 /
+18
+0;
+b10 #
+b111 "
+b111 .
+b11 !
+b11 -
+#60000
+17
+03
+1*
+1'
+1:
+b111 &
+b111 0
+0@
+11
+16
+1<
+b1101 /
+08
+1>
+b10 "
+b10 .
+b1001 !
+b1001 -
+#70000
+1%
+07
+0:
+0=
+0,
+b0 +
+1'
+06
+0<
+b0 &
+b0 0
+0@
+11
+04
+0$
+09
+1?
+0*
+b1000 /
+05
+b0 #
+b1000 "
+b1000 .
+b1000 !
+b1000 -
+#80000
+0)
+17
+1:
+12
+03
+0'
+16
+1<
+1@
+11
+14
+0%
+b1011 &
+b1011 0
+0=
+1$
+09
+1?
+0(
+1*
+b1101 /
+15
+1;
+b10 #
+b10 "
+b10 .
+b1101 !
+b1101 -
+#90000
+04
+01
+13
+0'
+1)
+0*
+17
+0:
+1=
+02
+b101 &
+b101 0
+0@
+06
+19
+0<
+0?
+b10 /
+05
+18
+0;
+0>
+b1101 "
+b1101 .
+b10 !
+b10 -
+#100000
+01
+0'
+02
+1*
+0)
+0:
+03
+1=
+b1101 &
+b1101 0
+1@
+09
+b0 /
+08
+1;
+1>
+b1111 "
+b1111 .
+b1100 !
+b1100 -
+#110000
