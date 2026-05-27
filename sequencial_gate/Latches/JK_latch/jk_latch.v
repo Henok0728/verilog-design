@@ -25,8 +25,9 @@ always @* begin
                 qn <= ~qn; // Toggle
             end
         endcase
-    end else begin
+    end else if (~en) begin
         q <= q;   // Hold state when not enabled
         qn <= qn; // Hold state when not enabled
     end
 end
+endmodule
