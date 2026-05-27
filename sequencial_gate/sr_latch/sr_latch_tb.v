@@ -5,6 +5,7 @@ module tb_sr_latch;
     
     reg s;
     reg r;
+    reg en;
     wire q;
     wire qn;
 
@@ -13,22 +14,27 @@ module tb_sr_latch;
         .s(s),
         .r(r),
         .q(q),
+        .en(en),
         .qn(qn)
     );
 
     // 3. Apply test vectors over time
     initial begin
         // Start by forcing a known state (Set it first)
-        s = 0; r = 0; #10;$display("%b %b %b %b", s, r, q, qn); // Q becomes 1
+        s = 0; r = 0; en = 1; #10;$display("%b %b %b %b", s, r, q, qn); // Q becomes 1
         
         // Go to Hold mode
-        s = 1; r = 0; #10;$display("%b %b %b %b", s, r, q, qn); // Q stays 1
+        s = 1; r = 0; en = 1; #10;$display("%b %b %b %b", s, r, q, qn); // Q stays 1
+
+        s = 0; r = 1; en = 0; #10;$display("%b %b %b %b", s, r, q, qn); // Q becomes 0
         
         // Trigger a Reset
-        s = 0; r = 1; #10;$display("%b %b %b %b", s, r, q, qn); // Q becomes 0
+        s = 0; r = 1; en = 1; #10;$display("%b %b %b %b", s, r, q, qn); // Q becomes 0
+        
+     
         
         // Go to Hold mode again
-        s = 1; r = 1; #10;$display("%b %b %b %b", s, r, q, qn); // Q stays 0
+        s = 1; r = 1; en = 1; #10;$display("%b %b %b %b", s, r, q, qn); // Q stays 0
         
         // Finish simulation
         $finish;
