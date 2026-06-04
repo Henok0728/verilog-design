@@ -27,3 +27,6 @@ i. Latches
  1. SR-LATCH
  2. JK-LATCH
  3. D-LATCH
+D.    FSM
+- MOORE FSM
+- MEARLY FSM
